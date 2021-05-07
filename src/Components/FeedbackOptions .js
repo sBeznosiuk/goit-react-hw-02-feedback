@@ -1,12 +1,15 @@
 import React from 'react'
+import { v4 as uuidv4 } from 'uuid';
+import { Button } from './styles'
 
-
-const Statistics = ({ options, onLeaveFeedback }) => (
+const FeedbackOptions = ({ options, onLeaveFeedback }) => (
     <>
-        <button type='button' name='good' onClick={options}>Good</button>
-        <button type='button' name='neutral' onClick={options}>Neutral</button>
-        <button type='button' name='bad' onClick={options}>Bad</button>
+        {options.map(name => (
+            <Button key={uuidv4()} type='button' name={name} onClick={onLeaveFeedback}>
+                {name}
+            </Button>
+       ))}
     </>
 )
 
-export default Statistics
+export default FeedbackOptions

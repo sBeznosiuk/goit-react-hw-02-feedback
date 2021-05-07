@@ -1,9 +1,10 @@
 import React from 'react'
+import { List } from './styles'
 
 
 const Statistics = ({ good, bad, neutral, positivePercentage, total }) => {
     return (
-        <ul>
+        <List>
             <li>
                 <span>Good: </span>
                 <span>{good}</span>
@@ -18,13 +19,13 @@ const Statistics = ({ good, bad, neutral, positivePercentage, total }) => {
                 </li>
             <li>
                 <span>Total: </span>
-                <span>{total()}</span>
+                <span>{total}</span>
             </li>
             <li>
                 <span>Positive feedback: </span>
-                <span>{positivePercentage()}</span>
+                <span>{positivePercentage}</span>
             </li>
-        </ul>
+        </List>
 )}
 
 export default Statistics

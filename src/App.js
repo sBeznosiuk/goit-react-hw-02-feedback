@@ -3,13 +3,18 @@ import FeedbackOptions from './Components/FeedbackOptions ';
 import Section from './Components/Section';
 import Statistics from './Components/Statistics';
 import Notification from './Components/Notification'
+import PropTypes from "prop-types";
 
 class App extends Component {
 
+  static defaultProps = {
+    title: ''
+  }
+
   state = {
-  good: 0,
-  neutral: 0,
-  bad: 0
+    good: 0,
+    neutral: 0,
+    bad: 0
   }
 
   handleClick = (e) => {
@@ -21,38 +26,34 @@ class App extends Component {
     return this.state.good + this.state.neutral + this.state.bad
   };
 
-  countPositiveFeedbackPercentage = () => {
-    const equation = this.state.good * 100 / (this.countTotalFeedback())
+  countPositiveFeedbackPercentage = (total) => {
+    const equation = this.state.good * 100 / total
     const flooredEquation = Math.floor(equation * 100) / 100 || 0;
     const percentage = `${flooredEquation}%`
     console.log(percentage);
     return percentage;
   }
-
-  renderFirst = () => {
-    if (this.countTotalFeedback()) {
-      return (
-      <Statistics
-          good={this.state.good}
-          neutral={this.state.neutral}
-          bad={this.state.bad}
-          total={this.countTotalFeedback}
-          positivePercentage={this.countPositiveFeedbackPercentage}
-      />
-    )
-    } else {
-        return <Notification message="No feedback given" />
-    }
-  }
   
   render() {
+    const total = this.countTotalFeedback()
+    const positivePercentage = this.countPositiveFeedbackPercentage(total)
+
     return (
       <>
         <Section title="Please leave feedback">
-          <FeedbackOptions options={this.handleClick} onLeaveFeedback={this} />
+          <FeedbackOptions options={['good', 'neutral', 'bad']} onLeaveFeedback={this.handleClick} />
         </Section>
         <Section title='Statistics'>
-          {this.renderFirst()}  
+          {total !== 0
+            ? <Statistics
+          good={this.state.good}
+          neutral={this.state.neutral}
+          bad={this.state.bad}
+          total={total}
+          positivePercentage={positivePercentage}
+          />
+            : <Notification message="No feedback given" />
+          }
         </Section>
       </>
       
