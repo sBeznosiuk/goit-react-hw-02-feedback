@@ -1,5 +1,5 @@
-import React from 'react'
-import { List } from './styles'
+// import React from 'react'
+// import { List } from './styles'
 
 
 const Statistics = ({ good, bad, neutral, positivePercentage, total }) => {
