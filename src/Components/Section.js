@@ -9,6 +9,7 @@ const Section = ({ title, children }) => (
 );
 
 Section.propTypes = {
+  children: PropTypes.any.isRequired,
   title: PropTypes.string.isRequired,
 };
 
